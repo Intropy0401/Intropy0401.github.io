@@ -8,7 +8,10 @@
   <link rel="preload" as="image" href="https://intropy0401.github.io/24jcj/j1/1.png">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500&display=swap" rel="stylesheet">
   <style>
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: 'Noto Serif TC', serif;
@@ -21,18 +24,21 @@
       min-height: 100vh;
       padding: 60px 20px 100px;
     }
+
     h1 {
       font-size: 2em;
       color: #333;
       text-align: center;
       margin-bottom: 10px;
     }
+
     .subtitle {
       font-size: 1em;
       color: #555;
       text-align: center;
       margin-bottom: 30px;
     }
+
     .card-container {
       max-width: 360px;
       width: 90vw;
@@ -42,14 +48,15 @@
       overflow: hidden;
       transition: all 0.3s ease;
     }
+
     .card-container img {
       width: 100%;
       height: auto;
       display: block;
       min-height: 200px;
       background-color: #f8f8f8;
-      opacity: 1;
     }
+
     .button-image {
       margin-top: 24px;
       width: 180px;
@@ -57,7 +64,11 @@
       cursor: pointer;
       transition: transform 0.3s ease;
     }
-    .button-image:hover { transform: scale(1.05); }
+
+    .button-image:hover {
+      transform: scale(1.05);
+    }
+
     .footer {
       margin-top: 40px;
       display: flex;
@@ -65,26 +76,28 @@
       justify-content: center;
       gap: 30px;
     }
+
     .footer a img {
       height: 60px;
       max-width: 140px;
     }
+
     @media (max-width: 480px) {
       h1 { font-size: 1.5em; }
       .subtitle { font-size: 0.95em; }
     }
-    /* 動畫效果：將切換動畫縮短到 50ms */
-    .fade-out { opacity: 0; transition: opacity 0.05s ease-out; }
-    .fade-in { opacity: 1; transition: opacity 0.05s ease-in; }
   </style>
 </head>
 <body>
   <h1>今日節氣之緣</h1>
   <div class="subtitle">靜心抽一張，與時序對話。</div>
+
   <div class="card-container" id="cardBox">
     <img id="cardImage" src="https://intropy0401.github.io/24jcj/j1/1.png" alt="節氣卡" loading="lazy">
   </div>
-  <img src="https://files.oaiusercontent.com/file_000000007ec851f7b6551da59242227b.png" class="button-image" alt="抽卡按鈕" id="drawBtn">
+
+  <img src="https://files.oaiusercontent.com/file_000000007ec851f7b6551da59242227b.png" class="button-image" alt="抽卡按鈕" onclick="drawCard()">
+
   <div class="footer">
     <a href="https://yourwebsite.com" target="_blank">
       <img src="your-logo-url.png" alt="我的Logo">
@@ -93,6 +106,7 @@
       <img src="partner-logo-url.png" alt="店家Logo">
     </a>
   </div>
+
   <script>
     const cards = [
       "https://intropy0401.github.io/24jcj/j1/1.png",
@@ -102,27 +116,12 @@
       "https://intropy0401.github.io/24jcj/j1/5.png",
       "https://intropy0401.github.io/24jcj/j1/6.png"
     ];
-    let lastIndex = -1;
-  </script>
-  <script>
-    window.onload = function() {
-      document.getElementById("drawBtn").addEventListener("click", function () {
-        const cardImage = document.getElementById("cardImage");
-        cardImage.classList.add("fade-out");
-        setTimeout(function() {
-          let randomIndex;
-          do {
-            randomIndex = Math.floor(Math.random() * cards.length);
-          } while(randomIndex === lastIndex && cards.length > 1);
-          lastIndex = randomIndex;
-          cardImage.src = cards[randomIndex];
-          cardImage.classList.remove("fade-out");
-          cardImage.classList.add("fade-in");
-        }, 50);  // 切換時間縮短到 50ms
-        setTimeout(function() {
-          cardImage.classList.remove("fade-in");
-        }, 100);  // 完全恢復在 100ms 內
-      });
+
+    function drawCard() {
+      const randomIndex = Math.floor(Math.random() * cards.length);
+      const selectedCard = cards[randomIndex];
+      const cardImage = document.getElementById("cardImage");
+      cardImage.src = selectedCard;
     }
   </script>
 </body>
