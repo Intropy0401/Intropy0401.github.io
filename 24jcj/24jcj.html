@@ -73,22 +73,18 @@
       h1 { font-size: 1.5em; }
       .subtitle { font-size: 0.95em; }
     }
-    /* 快速動畫效果 */
+    /* 動畫效果：將切換動畫縮短到 50ms */
     .fade-out { opacity: 0; transition: opacity 0.05s ease-out; }
-    .fade-in  { opacity: 1; transition: opacity 0.05s ease-in; }
+    .fade-in { opacity: 1; transition: opacity 0.05s ease-in; }
   </style>
 </head>
 <body>
   <h1>今日節氣之緣</h1>
   <div class="subtitle">靜心抽一張，與時序對話。</div>
-  
   <div class="card-container" id="cardBox">
     <img id="cardImage" src="https://intropy0401.github.io/24jcj/j1/1.png" alt="節氣卡" loading="lazy">
   </div>
-  
-  <!-- 改用 img 元素當作按鈕 -->
   <img src="https://files.oaiusercontent.com/file_000000007ec851f7b6551da59242227b.png" class="button-image" alt="抽卡按鈕" id="drawBtn">
-  
   <div class="footer">
     <a href="https://yourwebsite.com" target="_blank">
       <img src="your-logo-url.png" alt="我的Logo">
@@ -97,8 +93,37 @@
       <img src="partner-logo-url.png" alt="店家Logo">
     </a>
   </div>
-  
-  <!-- 引用外部 JavaScript (請將 randomCard.js 上傳到你可信賴的網域) -->
-  <script src="https://yourdomain.com/randomCard.js" defer></script>
+  <script>
+    const cards = [
+      "https://intropy0401.github.io/24jcj/j1/1.png",
+      "https://intropy0401.github.io/24jcj/j1/2.png",
+      "https://intropy0401.github.io/24jcj/j1/3.png",
+      "https://intropy0401.github.io/24jcj/j1/4.png",
+      "https://intropy0401.github.io/24jcj/j1/5.png",
+      "https://intropy0401.github.io/24jcj/j1/6.png"
+    ];
+    let lastIndex = -1;
+  </script>
+  <script>
+    window.onload = function() {
+      document.getElementById("drawBtn").addEventListener("click", function () {
+        const cardImage = document.getElementById("cardImage");
+        cardImage.classList.add("fade-out");
+        setTimeout(function() {
+          let randomIndex;
+          do {
+            randomIndex = Math.floor(Math.random() * cards.length);
+          } while(randomIndex === lastIndex && cards.length > 1);
+          lastIndex = randomIndex;
+          cardImage.src = cards[randomIndex];
+          cardImage.classList.remove("fade-out");
+          cardImage.classList.add("fade-in");
+        }, 50);  // 切換時間縮短到 50ms
+        setTimeout(function() {
+          cardImage.classList.remove("fade-in");
+        }, 100);  // 完全恢復在 100ms 內
+      });
+    }
+  </script>
 </body>
 </html>
